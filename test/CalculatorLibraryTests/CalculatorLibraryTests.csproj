@@ -15,7 +15,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\CalculatorLibrary\CalculatorLibrary.csproj" />
     <ProjectReference Include="..\CalculatorLibrary\CalculatorLibrary.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="CalculatorLibrary">
+      <HintPath>..\..\src\CalculatorLibrary\obj\Debug\net9.0\CalculatorLibrary.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
   <ItemGroup>
