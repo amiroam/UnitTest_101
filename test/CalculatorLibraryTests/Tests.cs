@@ -3,22 +3,46 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CalculatorLibrary; // Importing the CalculatorLibrary namespace to access the Calculator class.
+using CalculatorLibrary;
+using Xunit.Abstractions;
 
-namespace CalculatorLibrary.Tests.Unit // Namespace for the test project.
+namespace CalculatorLibrary.Tests.Unit 
 {
-    public class CalculatorTests // A class containing test methods for the Calculator class.
+    public class CalculatorTests 
     {
-        private readonly Calculator _sut = new (); // A private readonly field for the System Under Test (SUT), which is an instance of the Calculator class.
-        [Fact] // An attribute indicating that this method is a test method.  
-        public void Add_ShouldAddTwoNumbers_whenTwoNumbersAreIntegers() // A test method to verify the Add method of the Calculator class.
+        private readonly Calculator _sut = new();  
+        private readonly Guid _guid = Guid.NewGuid();
+        private readonly ITestOutputHelper _outputHelper;
+
+
+        public CalculatorTests(ITestOutputHelper outputHelper)
         {
-            // Create an instance of the Calculator class.
+            _outputHelper = outputHelper;
+        }
+
+
+        [Fact]  
+        public void Add_ShouldAddTwoNumbers_whenTwoNumbersAreIntegers() 
+        {
+           
             //Act
             var result = _sut.Add(5, 3);
 
-            // Assert that the result is equal to 8. This is a test validation step.
+            //Assert
             Assert.Equal(8, result);
+        }
+
+        [Fact] 
+        public void testGuid () 
+        {
+            _outputHelper.WriteLine($"Guid: {_guid} ");
+        }
+
+
+        [Fact]
+        public void testGuid2()
+        {
+            _outputHelper.WriteLine($"Guid: {_guid} ");
         }
     }
 }
