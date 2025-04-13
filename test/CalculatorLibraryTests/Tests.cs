@@ -8,18 +8,19 @@ using Xunit.Abstractions;
 
 namespace CalculatorLibrary.Tests.Unit 
 {
-    public class CalculatorTests 
+    public class CalculatorTests :IDisposable 
     {
         private readonly Calculator _sut = new();  
-        private readonly Guid _guid = Guid.NewGuid();
         private readonly ITestOutputHelper _outputHelper;
 
 
         public CalculatorTests(ITestOutputHelper outputHelper)
         {
             _outputHelper = outputHelper;
+            _outputHelper.WriteLine("Hello From Constructor");
         }
 
+      
 
         [Fact]  
         public void Add_ShouldAddTwoNumbers_whenTwoNumbersAreIntegers() 
@@ -30,19 +31,22 @@ namespace CalculatorLibrary.Tests.Unit
 
             //Assert
             Assert.Equal(8, result);
-        }
 
-        [Fact] 
-        public void testGuid () 
-        {
-            _outputHelper.WriteLine($"Guid: {_guid} ");
+            _outputHelper.WriteLine("Hello From Add");
         }
-
 
         [Fact]
-        public void testGuid2()
+        public void Subtract_ShouldSubtractTwoNumbers_whenTwoNumbersAreIntegers()
         {
-            _outputHelper.WriteLine($"Guid: {_guid} ");
+            //Act
+            var result = _sut.Subtract(5, 3);
+            //Assert
+            Assert.Equal(2, result);
+            _outputHelper.WriteLine("Hello From Subtract");
+        }
+        public void Dispose() 
+        {
+            _outputHelper.WriteLine("Hello From Cleanup");
         }
     }
 }
