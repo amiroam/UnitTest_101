@@ -1,48 +1,62 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CalculatorLibrary;
-using Xunit.Abstractions;
+﻿using Xunit;
 
-namespace CalculatorLibrary.Tests.Unit 
+namespace CalculatorLibrary.Tests.Unit;
+
+public class CalculatorTests
 {
-    public class CalculatorTests 
+    private readonly Calculator _sut = new();
+    [Theory]
+    [InlineData(5, 5, 10)]
+    [InlineData(-5, 5, 0)]
+    [InlineData(-15, -5, -20)]
+    public void Add_ShouldAddTwoNumbers_whenTwoNumbersAreIntegers(
+      int a, int b, int expected)
     {
-        private readonly Calculator _sut = new();  
-     //   [Theory(Skip ="This Breaks In CI")]
-        [Theory]
-        [InlineData(5, 3, 8, Skip ="This Breaks In CI")]
-        [InlineData(0, 0, 0)]
-        [InlineData(5, 4, 9)]
-        [InlineData(5, 10, 15)]
-        // This test method verifies that the Add method in the Calculator class 
-        // correctly adds two integer numbers and returns the expected
-        // It uses the [Theory] attribute to test multiple input values (a, b) 
-        // and their expected output (expected).
-        public void Add_ShouldAddTwoNumbers_whenTwoNumbersAreIntegers(
-            int a, int b, int expected)    
-        {
-
-            //Act
-            var result = _sut.Add(a,b);
-
-            //Assert
-            Assert.Equal(expected, result);
-
-           
-        }
-
-        [Fact(Skip ="This IS Just A Test")]
-        public void subtract_ShouldSubtractTwoNumbers_whenTwoNumbersAreIntegers()
-        {
-            //Act
-            var result = _sut.Subtract(10, 2);
-            //Assert
-            Assert.Equal(8, result);
-        }
+        //Act
+        var result = _sut.Add(a, b);
+        //Assert
+        Assert.Equal(expected, result);
+    }
+    [Theory]
+    [InlineData(5, 5, 0)]
+    [InlineData(15, 5, 10)]
+    [InlineData(-5, -5, 0)]
+    [InlineData(-15, -5, -10)]
+    [InlineData(5, 10, -5)]
 
 
+    public void Subtract_ShouldSubtractTwoNumbers_whenTwoNumbersAreIntegers(
+      int a, int b, int expected)
+    {
+        //Act
+        var result = _sut.Subtract(a, b);
+        //Assert
+        Assert.Equal(expected, result);
+    }
+
+
+    [Theory]
+    [InlineData(5, 5, 25)]
+    [InlineData(50, 0, 0)]
+    [InlineData(-5, 5, -25)]
+
+    public void Multiply_ShouldMultiplyTwoNumbers_whenTwoNumbersAreIntegers(
+      int a, int b, int expected)
+    {
+        //Act
+        var result = _sut.Multiply(a, b);
+        //Assert
+        Assert.Equal(expected, result);
+    }
+    [Theory]
+    [InlineData(5, 5, 1)]
+    [InlineData(15, 5, 3)]
+    public void Divide_ShouldDivideTwoNumbers_whenTwoNumbersAreIntegers(
+      int a, int b, float expected)
+    {
+        //Act
+        var result = _sut.Divide(a, b);
+        //Assert
+        Assert.Equal(expected, result);
     }
 }
