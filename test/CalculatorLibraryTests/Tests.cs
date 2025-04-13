@@ -8,45 +8,31 @@ using Xunit.Abstractions;
 
 namespace CalculatorLibrary.Tests.Unit 
 {
-    public class CalculatorTests :IDisposable 
+    public class CalculatorTests 
     {
         private readonly Calculator _sut = new();  
-        private readonly ITestOutputHelper _outputHelper;
-
-        //Setup Goes Here
-        public CalculatorTests(ITestOutputHelper outputHelper)
+        [Theory]
+        [InlineData(5, 3, 8)]
+        [InlineData(0, 0, 0)]
+        [InlineData(7, 3, 10)]
+        [InlineData(51, 3, 54)]
+        // This test method verifies that the Add method in the Calculator class 
+        // correctly adds two integer numbers and returns the expected
+        // It uses the [Theory] attribute to test multiple input values (a, b) 
+        // and their expected output (expected).
+        public void Add_ShouldAddTwoNumbers_whenTwoNumbersAreIntegers(
+            int a, int b, int expected)    
         {
-            _outputHelper = outputHelper;
-            _outputHelper.WriteLine("Hello From Constructor");
+
+            //Act
+            var result = _sut.Add(a,b);
+
+            //Assert
+            Assert.Equal(expected, result);
+
+           
         }
 
       
-
-        [Fact]  
-        public void Add_ShouldAddTwoNumbers_whenTwoNumbersAreIntegers() 
-        {
-           
-            //Act
-            var result = _sut.Add(5, 3);
-
-            //Assert
-            Assert.Equal(8, result);
-
-            _outputHelper.WriteLine("Hello From Add");
-        }
-
-        [Fact]
-        public void Subtract_ShouldSubtractTwoNumbers_whenTwoNumbersAreIntegers()
-        {
-            //Act
-            var result = _sut.Subtract(5, 3);
-            //Assert
-            Assert.Equal(2, result);
-            _outputHelper.WriteLine("Hello From Subtract");
-        }
-        public void Dispose() 
-        {
-            _outputHelper.WriteLine("Hello From Cleanup");
-        }
     }
 }
